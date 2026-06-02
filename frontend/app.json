@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Street Vendor Tracker",
+    "slug": "street-vendor-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app requires location access to track and show street vendors on the map near you, and to track delivery locations.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app requires continuous background location access for vendors to stream their shop's live movement even when their device is locked.",
+        "NSLocationAlwaysUsageDescription": "Vendors require background location access to broadcast their active shop position dynamically."
+      }
+    },
+    "android": {
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE"
+      ]
+    }
+  }
+}
