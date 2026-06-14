@@ -3,7 +3,7 @@ import { prisma } from '../../shared/db.js';
 import { authenticateJWT, AuthenticatedRequest } from '../../middleware/auth.js';
 
 const router = Router();
-
+// does this file need to import the LocationProcessorService? No, it is a separate service that runs independently and does not directly interact with the menu routes. The menu routes handle CRUD operations for menu items, while the LocationProcessorService handles real-time location updates for vendors. They operate in different domains of the application and do not have direct dependencies on each other.
 // Helper to check if a day of the week is matched by a comma-separated string
 function isAvailableOnDay(daysAvailable: string, dayOfWeek: string): boolean {
   const normalizedDay = dayOfWeek.trim().toLowerCase();

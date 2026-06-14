@@ -4,6 +4,7 @@ import { FirebaseService } from '../../shared/firebase.js';
 
 export class LocationProcessorService {
   public initialize(): void {
+    // added a log to indicate that the Location Stream Processor Consumer is starting
     console.log('⚙️ [LocationProcessor] Starting Location Stream Processor Consumer...');
 
     // Subscribe to vendor coordinate updates topic

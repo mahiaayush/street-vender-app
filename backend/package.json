@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Street Vendor Tracker Backend Microservices",
+  "description": "Street Vendor Tracker Backend Microservices database and API server",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx src/index.ts",
