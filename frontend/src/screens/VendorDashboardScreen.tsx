@@ -15,6 +15,7 @@ import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { CONFIG } from '../config';
 import { MenuManagementScreen } from './MenuManagementScreen';
+import { BannerCustomizer } from './BannerCustomizer';
 
 interface Order {
   id: string;
@@ -48,6 +49,13 @@ export const VendorDashboardScreen: React.FC = () => {
   // Orders State
   const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
+
+  // Banner Customizer & Sharing Privacy States
+  const [showProfilePic, setShowProfilePic] = useState(true);
+  const [showBusinessName, setShowBusinessName] = useState(true);
+  const [showMobile, setShowMobile] = useState(true);
+  const [showAddress, setShowAddress] = useState(true);
+  const [customizerVisible, setCustomizerVisible] = useState(false);
 
   const categories = ['Chaat & Snacks', 'Vegetables', 'Fruits', 'General'];
 
@@ -346,6 +354,71 @@ export const VendorDashboardScreen: React.FC = () => {
           <Text style={styles.saveBtnText}>Save Profile Updates</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Banner Privacy & Customization Card */}
+      <View style={styles.card}>
+        <Text style={styles.cardHeader}>🎨 Status Banner Sharing Privacy</Text>
+        <Text style={styles.privacyHelper}>Choose what business details to export on your personalized banner:</Text>
+        
+        <View style={styles.switchRow}>
+          <Text style={styles.switchLabel}>Show Profile Picture Avatar</Text>
+          <Switch
+            value={showProfilePic}
+            onValueChange={setShowProfilePic}
+            trackColor={{ false: '#3a3a3c', true: '#00ffcc' }}
+            thumbColor={showProfilePic ? '#121214' : '#8e8e93'}
+          />
+        </View>
+
+        <View style={styles.switchRow}>
+          <Text style={styles.switchLabel}>Show Shop Name ({shopName})</Text>
+          <Switch
+            value={showBusinessName}
+            onValueChange={setShowBusinessName}
+            trackColor={{ false: '#3a3a3c', true: '#00ffcc' }}
+            thumbColor={showBusinessName ? '#121214' : '#8e8e93'}
+          />
+        </View>
+
+        <View style={styles.switchRow}>
+          <Text style={styles.switchLabel}>Show Mobile Phone ({user?.phone})</Text>
+          <Switch
+            value={showMobile}
+            onValueChange={setShowMobile}
+            trackColor={{ false: '#3a3a3c', true: '#00ffcc' }}
+            thumbColor={showMobile ? '#121214' : '#8e8e93'}
+          />
+        </View>
+
+        <View style={styles.switchRow}>
+          <Text style={styles.switchLabel}>Show Address (Coordinates)</Text>
+          <Switch
+            value={showAddress}
+            onValueChange={setShowAddress}
+            trackColor={{ false: '#3a3a3c', true: '#00ffcc' }}
+            thumbColor={showAddress ? '#121214' : '#8e8e93'}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.customizerLaunchBtn} onPress={() => setCustomizerVisible(true)}>
+          <Text style={styles.customizerLaunchBtnText}>🎨 Launch Canvas Customizer Workspace</Text>
+        </TouchableOpacity>
+      </View>
+
+      <BannerCustomizer
+        visible={customizerVisible}
+        onClose={() => setCustomizerVisible(false)}
+        vendorName={user?.name || ''}
+        shopName={shopName || shop?.name || ''}
+        shopCategory={shopCategory}
+        shopPhone={user?.phone || ''}
+        showProfilePic={showProfilePic}
+        showBusinessName={showBusinessName}
+        showMobile={showMobile}
+        showAddress={showAddress}
+        latitude={isActive ? lat : null}
+        longitude={isActive ? lng : null}
+      />
     </ScrollView>
   );
 };
@@ -655,6 +728,42 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   saveBtnText: {
+    color: '#121214',
+    fontWeight: '800',
+    fontSize: 14,
+  },
+  privacyHelper: {
+    color: '#8e8e93',
+    fontSize: 12,
+    marginBottom: 16,
+  },
+  switchRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: '#2c2c2e',
+  },
+  switchLabel: {
+    color: '#fff',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  customizerLaunchBtn: {
+    backgroundColor: '#00ffcc',
+    borderRadius: 10,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    shadowColor: '#00ffcc',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  customizerLaunchBtnText: {
     color: '#121214',
     fontWeight: '800',
     fontSize: 14,
